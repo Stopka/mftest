@@ -1,0 +1,37 @@
+{
+  "name": "stopka/mf-test",
+  "description": "MediaFactory job test",
+  "keywords": [
+    "nette"
+  ],
+  "type": "project",
+  "license": [
+    "proprietary"
+  ],
+  "require": {
+    "php": ">= 7.2",
+    "nette/application": "^2.4",
+    "nette/bootstrap": "^2.4.2",
+    "nette/caching": "^2.5",
+    "nette/database": "^2.4",
+    "nette/di": "^2.4",
+    "nette/robot-loader": "^2.4 || ^3.0",
+    "nette/utils": "^2.4",
+    "tracy/tracy": "^2.4",
+    "nettrine/orm": "^0.3.0",
+    "ramsey/uuid": "^3.8",
+    "ramsey/uuid-doctrine": "^1.5",
+    "contributte/console": "^0.5.0"
+  },
+  "require-dev": {
+    "nette/tester": "^2.0",
+    "mockery/mockery": "^1.1.0",
+    "roave/security-advisories": "dev-master@dev"
+  },
+  "minimum-stability": "stable",
+  "config": {
+    "platform": {
+      "php": "7.2"
+    }
+  }
+}

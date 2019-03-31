@@ -1,0 +1,52 @@
+parameters:
+    database:
+        host: 127.0.0.1
+        user: root
+        password:
+        dbname: db
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+session:
+	expiration: 14 days
+
+
+dbal:
+    connection:
+        host: %database.host%
+        user: %database.user%
+        password: %database.password%
+        dbname: %database.dbname%
+        types:
+            uuid_binary:
+                class: Ramsey\Uuid\Doctrine\UuidBinaryType
+                commented: uuid
+
+        typesMapping:
+            uuid_binary: binary
+
+orm:
+    configuration:
+        namingStrategy: Stopka\MediaFactory\Model\Database\Doctrine\NamingStrategy
+
+orm.annotations:
+    paths:
+        - %appDir%/../app/Model/Database/Entities
+
+console:
+    name: MFTest
+
+services:
+	router: App\RouterFactory::createRouter
+
+extensions:
+    dbal: Nettrine\DBAL\DI\DbalExtension
+    dbal.console: Nettrine\DBAL\DI\DbalConsoleExtension
+    orm: Nettrine\ORM\DI\OrmExtension
+    orm.annotations: Nettrine\ORM\DI\OrmAnnotationsExtension
+    orm.console: Nettrine\ORM\DI\OrmConsoleExtension
+    console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)

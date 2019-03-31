@@ -1,0 +1,60 @@
+version: "2.3"
+services:
+  mftest:
+    build: ./
+    image: skorpil.cz/mftest:latest
+    environment:
+      - 'ConfigNeon={
+           "parameters": {
+              "database": {
+                "host": "mftest-mariadb",
+                "user": "root",
+                "password": "heslo",
+                "dbname": "mftest"
+              }
+           }
+         }'
+
+    volumes:
+      - ./src:/srv
+    networks:
+      - mftest-mariadb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "10"
+  mftest-mariadb:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=heslo
+      - MYSQL_DATABASE=mftest
+    volumes:
+      - mftest-mariadb-data:/var/lib/mysql
+    networks:
+      - mftest-mariadb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "10"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      - PMA_HOSTS=mftest-mariadb
+    volumes:
+      - phpmyadmin-sessions:/sessions
+    networks:
+      - mftest-mariadb
+    ports:
+      - 8001:80
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "10"
+volumes:
+  mftest-mariadb-data:
+  phpmyadmin-sessions:
+networks:
+  mftest-mariadb:
